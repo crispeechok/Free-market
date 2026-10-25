@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERRA — маркетплейс</title>
+<style>
+:root{--bg:#f5f6fa;--ink:#171927;--muted:#777d8d;--line:#e8eaf0;--purple:#6657f5;--purple2:#887cff;--pink:#ff648d;--card:#fff;--radius:22px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:0}a{color:inherit;text-decoration:none}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.wrap{max-width:1280px;margin:auto;padding:0 24px}
+.head{height:82px;display:flex;align-items:center;gap:24px}
+.logo{font-size:30px;font-weight:900;letter-spacing:-1.5px;color:var(--purple);display:flex;align-items:center;gap:9px}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:12px;display:grid;place-items:center;color:white;font-size:19px}
+.search{flex:1;display:flex;background:#f4f5f9;border:1px solid #eff0f5;border-radius:16px;padding:5px 6px 5px 18px;align-items:center;gap:10px}
+.search input{background:transparent;border:0;outline:0;flex:1;min-width:0;padding:11px 0}
+.search button{background:var(--purple);color:white;border-radius:12px;padding:11px 20px;font-weight:700}
+.actions{display:flex;gap:10px}.action{background:#f5f5fa;border-radius:14px;padding:11px 14px;font-weight:650;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.nav{display:flex;gap:9px;padding:0 0 14px;overflow:auto}.nav button{background:#f3f3f9;border-radius:12px;padding:9px 15px;white-space:nowrap;color:#4e5261}.nav button.active,.nav button:hover{background:#e9e6ff;color:var(--purple)}
+.hero{margin:25px 0 26px;border-radius:30px;overflow:hidden;min-height:280px;background:linear-gradient(115deg,#5c50ed 0%,#8877ff 52%,#e9a0ff 100%);color:white;display:flex;align-items:center;position:relative;padding:42px 48px}
+.hero:after{content:"";position:absolute;width:380px;height:380px;border:70px solid rgba(255,255,255,.12);border-radius:50%;right:7%;top:-120px}
+.hero-copy{max-width:550px;position:relative;z-index:1}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;opacity:.8}
+.hero h1{font-size:clamp(32px,4vw,52px);line-height:1.04;letter-spacing:-2px;margin:13px 0}.hero p{font-size:16px;max-width:420px;color:#f2efff}.hero button{margin-top:15px;background:white;color:#5e52e9;border-radius:14px;padding:13px 20px;font-weight:800}
+.hero-art{position:absolute;right:11%;bottom:-5px;z-index:1;font-size:130px;filter:drop-shadow(0 18px 15px #4d3ab755);transform:rotate(-9deg)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:26px 0 15px}.section-head h2{font-size:25px;letter-spacing:-.7px;margin:0}.section-head small{color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}.cat{background:white;border-radius:18px;padding:17px 10px;text-align:center;transition:.2s;cursor:pointer;border:1px solid transparent}.cat:hover{transform:translateY(-3px);border-color:#d9d5ff}.cat-icon{width:62px;height:62px;border-radius:19px;background:#f2efff;margin:0 auto 10px;display:grid;place-items:center;font-size:30px}.cat span{font-weight:700;font-size:13px}
+.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.chip{border:1px solid #e5e6ed;background:white;border-radius:12px;padding:9px 14px;color:#5f6371}.chip.selected{background:#e9e6ff;border-color:#d8d2ff;color:var(--purple);font-weight:700}.sort{margin-left:auto;background:white;border:1px solid var(--line);border-radius:12px;padding:10px;color:#4c5060}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.product{background:white;border-radius:20px;padding:10px;position:relative;transition:.22s;border:1px solid transparent;min-width:0}.product:hover{transform:translateY(-4px);box-shadow:0 15px 35px #22222b0b;border-color:#ecebff}.photo{height:205px;border-radius:15px;display:grid;place-items:center;font-size:82px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f2f3f8,#e9ebf4)}.photo:before{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:#ffffff70;right:-40px;top:-55px}.photo span{position:relative;filter:drop-shadow(0 10px 7px #00000015)}.heart{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:12px;background:#ffffffdf;color:#777;display:grid;place-items:center;font-size:18px}.heart.liked{color:#f04e82}.tag{position:absolute;left:9px;bottom:9px;background:#ff648c;color:white;border-radius:8px;padding:4px 7px;font-size:10px;font-weight:800}.product h3{font-size:14px;margin:12px 3px 5px;line-height:1.35;height:38px;overflow:hidden}.rating{font-size:11px;color:#8a8e9b;margin:0 3px 9px}.rating b{color:#e8a322}.price-row{display:flex;align-items:center;gap:7px;margin:0 3px}.price{font-size:20px;font-weight:850;letter-spacing:-.5px}.old{font-size:11px;color:#a0a3ad;text-decoration:line-through}.add{width:100%;margin-top:10px;background:#f0efff;color:var(--purple);border-radius:12px;padding:10px;font-weight:800}.add:hover{background:var(--purple);color:white}
+footer{margin-top:50px;background:#202132;color:#c4c5d1;padding:30px 0}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center}.foot strong{color:white;font-size:23px}.foot small{color:#8e90a1}
+.empty{grid-column:1/-1;text-align:center;padding:50px;background:white;border-radius:20px;color:var(--muted)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#202132;color:white;padding:13px 20px;border-radius:14px;z-index:30;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:950px){.products{grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.actions .action span{display:none}.hero-art{right:4%;font-size:100px}}
+@media(max-width:650px){.wrap{padding:0 14px}.head{height:auto;padding:14px 0;flex-wrap:wrap;gap:12px}.logo{font-size:25px}.search{order:3;flex-basis:100%}.actions{margin-left:auto}.nav{padding-bottom:12px}.hero{padding:28px 24px;min-height:300px}.hero-art{font-size:74px;right:4%;bottom:12px;opacity:.65}.hero-copy{max-width:100%}.hero h1{font-size:36px}.categories{grid-template-columns:repeat(3,1fr);gap:8px}.cat{padding:12px 5px}.cat-icon{width:50px;height:50px;font-size:25px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.photo{height:155px;font-size:62px}.product{padding:7px}.price{font-size:17px}.section-head h2{font-size:22px}.sort{margin-left:0}.foot{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+ <div class="head">
+  <a class="logo" href="#"><span class="logo-mark">V</span> VERRA</a>
+  <div class="search"><span>⌕</span><input id="search" placeholder="Искать товары, бренды и категории" autocomplete="off"><button id="searchBtn">Найти</button></div>
+  <div class="actions"><button class="action" id="favoritesBtn">♡ <span>Избранное</span></button><button class="action" id="cartBtn">▣ <span>Корзина</span> <b id="cartCount">0</b></button></div>
+ </div>
+ <nav class="nav" id="nav"><button class="active" data-cat="Все товары">Все товары</button><button data-cat="Электроника">Электроника</button><button data-cat="Одежда">Одежда</button><button data-cat="Дом">Дом</button><button data-cat="Красота">Красота</button><button data-cat="Спорт">Спорт</button><button data-cat="Аксессуары">Аксессуары</button></nav>
+</div></header>
+<main class="wrap">
+<section class="hero"><div class="hero-copy"><div class="eyebrow">Новая коллекция • 2026</div><h1>Покупки, которые<br>вдохновляют.</h1><p>Откройте тысячи товаров и находите то, что подходит именно вам.</p><button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Перейти к покупкам →</button></div><div class="hero-art">🛍️</div></section>
+<section><div class="section-head"><h2>Популярные категории</h2><small>Выбирайте свое</small></div><div class="categories">
+<div class="cat" data-cat="Электроника"><div class="cat-icon">🎧</div><span>Электроника</span></div><div class="cat" data-cat="Одежда"><div class="cat-icon" style="background:#fff0f3">👕</div><span>Одежда</span></div><div class="cat" data-cat="Дом"><div class="cat-icon" style="background:#fff4e8">🏡</div><span>Для дома</span></div><div class="cat" data-cat="Красота"><div class="cat-icon" style="background:#fceeff">🧴</div><span>Красота</span></div><div class="cat" data-cat="Спорт"><div class="cat-icon" style="background:#e9f8f2">🏃</div><span>Спорт</span></div><div class="cat" data-cat="Аксессуары"><div class="cat-icon" style="background:#eef5ff">⌚</div><span>Аксессуары</span></div>
+</div></section>
+<section id="catalog"><div class="section-head"><h2 id="catalogTitle">Витрина VERRA</h2><small id="resultCount">Подборка для вас</small></div>
+<div class="toolbar"><button class="chip selected" data-filter="all">Все</button><button class="chip" data-filter="sale">Со скидкой</button><button class="chip" data-filter="popular">Популярное</button><select class="sort" id="sort"><option value="default">Сначала рекомендуемые</option><option value="low">Сначала дешевле</option><option value="high">Сначала дороже</option></select></div>
+<div class="products" id="products"></div></section>
+</main>
+<footer><div class="wrap foot"><div><strong>VERRA</strong><div>Маркетплейс нового поколения</div></div><small>© 2026 VERRA · Демонстрационный магазин</small><small>Доставка · Поддержка · О компании</small></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const data=[
+{id:1,name:'Беспроводные наушники SoundFlow Pro',cat:'Электроника',price:4290,old:5990,rating:4.9,reviews:842,emoji:'🎧',bg:'#e9e7ff',sale:true,pop:true},
+{id:2,name:'Кроссовки Urban Motion',cat:'Одежда',price:5790,old:7990,rating:4.8,reviews:321,emoji:'👟',bg:'#e8f3ff',sale:true,pop:true},
+{id:3,name:'Умная лампа с мягким светом',cat:'Дом',price:1890,old:2490,rating:4.7,reviews:195,emoji:'💡',bg:'#fff4d9',sale:true,pop:false},
+{id:4,name:'Увлажняющий крем Daily Glow',cat:'Красота',price:1290,old:1590,rating:4.9,reviews:604,emoji:'🧴',bg:'#ffe8f0',sale:true,pop:true},
+{id:5,name:'Рюкзак City Minimal',cat:'Аксессуары',price:3490,old:0,rating:4.6,reviews:127,emoji:'🎒',bg:'#e6f4ed',sale:false,pop:false},
+{id:6,name:'Фитнес-бутылка Active 750 мл',cat:'Спорт',price:890,old:1190,rating:4.8,reviews:288,emoji:'🥤',bg:'#e7f5ff',sale:true,pop:true},
+{id:7,name:'Часы Nova Smart',cat:'Электроника',price:6990,old:8990,rating:4.7,reviews:456,emoji:'⌚',bg:'#eeeaff',sale:true,pop:true},
+{id:8,name:'Мягкий плед Cloud',cat:'Дом',price:2390,old:0,rating:4.8,reviews:98,emoji:'🧶',bg:'#f4e9e2',sale:false,pop:false},
+{id:9,name:'Базовая футболка Cotton',cat:'Одежда',price:1490,old:1990,rating:4.6,reviews:510,emoji:'👕',bg:'#f2f2f4',sale:true,pop:false},
+{id:10,name:'Солнцезащитные очки Wave',cat:'Аксессуары',price:2190,old:0,rating:4.5,reviews:76,emoji:'🕶️',bg:'#fff0df',sale:false,pop:false},
+{id:11,name:'Коврик для йоги Balance',cat:'Спорт',price:1990,old:2590,rating:4.8,reviews:143,emoji:'🧘',bg:'#e8f4e8',sale:true,pop:false},
+{id:12,name:'Набор кистей Soft Touch',cat:'Красота',price:990,old:1390,rating:4.7,reviews:211,emoji:'🖌️',bg:'#f8e9ff',sale:true,pop:false}
+];
+let cart=[],favorites=new Set(),category='Все товары',filter='all',query='',showFavorites=false;
+const products=document.getElementById('products'),count=document.getElementById('cartCount'),toast=document.getElementById('toast');
+function money(n){return n.toLocaleString('ru-RU')+' ₽'}
+function render(){
+ let items=data.filter(p=>(category==='Все товары'||p.cat===category)&&(!showFavorites||favorites.has(p.id))&&(!query||(p.name+' '+p.cat).toLowerCase().includes(query.toLowerCase()))&&(filter==='all'||filter==='sale'&&p.sale||filter==='popular'&&p.pop));
+ const sort=document.getElementById('sort').value;if(sort==='low')items.sort((a,b)=>a.price-b.price);if(sort==='high')items.sort((a,b)=>b.price-a.price);
+ document.getElementById('catalogTitle').textContent=showFavorites?'Избранное':category==='Все товары'?'Витрина VERRA':category;
+ document.getElementById('resultCount').textContent=items.length+' товаров';
+ products.innerHTML=items.length?items.map(p=>`<article class="product"><div class="photo" style="background:linear-gradient(135deg,${p.bg},#fff)"><span>${p.emoji}</span><button class="heart ${favorites.has(p.id)?'liked':''}" data-heart="${p.id}" aria-label="В избранное">${favorites.has(p.id)?'♥':'♡'}</button>${p.sale?'<span class="tag">−'+Math.round((1-p.price/p.old)*100)+'%</span>':''}</div><h3>${p.name}</h3><div class="rating"><b>★ ${p.rating}</b> · ${p.reviews} отзывов</div><div class="price-row"><span class="price">${money(p.price)}</span>${p.old?`<span class="old">${money(p.old)}</span>`:''}</div><button class="add" data-add="${p.id}">＋ В корзину</button></article>`).join(''):'<div class="empty">Ничего не найдено. Попробуйте изменить поиск или категорию.</div>';
+}
+function notify(t){toast.textContent=t;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),1900)}
+function setCat(c){category=c;showFavorites=false;document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.cat===c));render()}
+document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-cat]');if(b)setCat(b.dataset.cat)});
+document.querySelector('.categories').addEventListener('click',e=>{let c=e.target.closest('.cat');if(c){setCat(c.dataset.cat);document.getElementById('catalog').scrollIntoView({behavior:'smooth'})}});
+document.querySelector('.toolbar').addEventListener('click',e=>{let b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('selected',x===b));render()});
+document.getElementById('sort').addEventListener('change',render);
+function search(){query=document.getElementById('search').value.trim();showFavorites=false;render();document.getElementById('catalog').scrollIntoView({behavior:'smooth'})}
+document.getElementById('searchBtn').addEventListener('click',search);document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
+products.addEventListener('click',e=>{let h=e.target.closest('[data-heart]'),a=e.target.closest('[data-add]');if(h){let id=+h.dataset.heart;favorites.has(id)?favorites.delete(id):favorites.add(id);render();notify(favorites.has(id)?'Добавлено в избранное':'Удалено из избранного')}if(a){let p=data.find(x=>x.id===+a.dataset.add);cart.push(p);count.textContent=cart.length;notify('Добавлено в корзину: '+p.name)}});
+document.getElementById('favoritesBtn').addEventListener('click',()=>{showFavorites=!showFavorites;category='Все товары';render();document.getElementById('catalog').scrollIntoView({behavior:'smooth'})});
+document.getElementById('cartBtn').addEventListener('click',()=>{if(!cart.length){notify('Корзина пока пустая');return}let total=cart.reduce((s,p)=>s+p.price,0);notify('В корзине '+cart.length+' товар(а) · '+money(total))});
+render();
+</script>
+</body></html>
